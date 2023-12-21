@@ -22,7 +22,10 @@ const Section_Home4 = ({ activities }: Props) => {
                 title={item.name}
                 description={
                   <div className='flex justify-between items-center'>
-                    <p>{item.creator}</p>
+                    <pre>Người tạo hoạt động: {item.creator}
+                    <br />
+                    {item.description}
+                    </pre>
                     <Button onClick={() => router.push(`/activity/${item.id}`)}>Xem chi tiết</Button>
                   </div>
                 }

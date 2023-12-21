@@ -1,8 +1,9 @@
 import { useMutation, useQuery } from 'react-query'
-import { Button, Form, Input, message, Modal, Row, Col } from 'antd'
+import { Button, Form, Input, message, Modal, Row, Col, Select, SelectProps } from 'antd'
 import { useForm } from 'antd/lib/form/Form'
 import { useEffect } from 'react'
-import { organizationService } from '@/services/organization.service'
+import dayjs from 'dayjs'
+import { faqService } from '@/services/faq.service'
 
 interface Props {
   editId?: number
@@ -10,13 +11,26 @@ interface Props {
   setOpen: any
   refetch: any
 }
-const FormOrganization = ({ editId, open, setOpen, refetch }: Props) => {
+const FormFaq = ({ editId, open, setOpen, refetch }: Props) => {
   const [form] = useForm()
   const isEditIdValidNumber = typeof editId === 'number'
+  const newMutation = useMutation({
+    mutationKey: 'new',
+    mutationFn: (body: { question: string; answer: string }) => faqService.newFaq(body),
+    onSuccess(data, _variables, _context) {
+      const res = data.data
+      if (res) return
+      message.success('Tạo thành công')
+      setOpen(false)
+      refetch()
+    },
+    onError(error, variables, context) {
+      message.error('Tạo không thành công')
+    }
+  })
   const updateMutation = useMutation({
     mutationKey: 'update',
-    mutationFn: (body: { name: string; location: string; description: string }) =>
-      organizationService.updateOrganization(editId as number, body),
+    mutationFn: (body: { question: string; answer: string }) => faqService.updateFaq(editId as number, body),
     onSuccess(data, _variables, _context) {
       const res = data.data
       if (!res) return
@@ -28,48 +42,40 @@ const FormOrganization = ({ editId, open, setOpen, refetch }: Props) => {
       message.error('Cập nhật không thành công')
     }
   })
-  function handleregister(value: any) {
+  function handlenew(value: any) {
     if (editId) {
       updateMutation.mutate(value)
+    } else {
+      newMutation.mutate(value)
     }
   }
-  const { data } = useQuery(['user'], () => organizationService.getOrganizationById(editId as number), {
+  const { data } = useQuery(['user'], () => faqService.getFaqById(editId as number), {
     enabled: isEditIdValidNumber
   })
   useEffect(() => {
     if (editId && data) {
       form.setFieldsValue({
-        // @ts-ignore
-        ...data.data.data.organization
+        ...data.data.data
       })
     }
   }, [data])
+
   return (
-    <Modal
-      title={editId ? `Chỉnh sửa ban tổ chức` : 'Tạo ban tổ chức mới'}
-      centered
-      open={open}
-      width={1000}
-      footer={false}
-    >
+    <Modal title={editId ? `Chỉnh sửa faq` : 'Tạo faq mới'} centered open={open} width={1000} footer={false}>
       <Form
         form={form}
         name='basic'
         initialValues={{ remember: true }}
-        onFinish={handleregister}
+        onFinish={handlenew}
         autoComplete='off'
         layout='vertical'
       >
-        <Form.Item label='Tên tổ chức' name='name' rules={[{ required: true, message: 'Chưa điền tên tổ chức' }]}>
+        <Form.Item label='Câu hỏi' name='question' rules={[{ required: true, message: 'Chưa điền câu hỏi' }]}>
           <Input />
         </Form.Item>
 
-        <Form.Item label='Địa chỉ' name='location' rules={[{ required: true, message: 'Chưa điền địa điểm' }]}>
+        <Form.Item label='Câu trả lời' name='answer' rules={[{ required: true, message: 'Chưa điền câu trả lời' }]}>
           <Input />
-        </Form.Item>
-
-        <Form.Item label='Mô tả' name='description' rules={[{ required: true, message: 'Chưa điền mô tả' }]}>
-          <Input.TextArea />
         </Form.Item>
 
         <Row justify={'center'} align={'middle'} gutter={16}>
@@ -91,4 +97,4 @@ const FormOrganization = ({ editId, open, setOpen, refetch }: Props) => {
   )
 }
 
-export default FormOrganization
+export default FormFaq

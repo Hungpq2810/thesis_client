@@ -3,6 +3,7 @@ import { Button, Form, Input, message, Modal, Row, Col, DatePicker, Select, Sele
 import { useForm } from 'antd/lib/form/Form'
 import { useEffect } from 'react'
 import { activityService } from '@/services/activity.service'
+import { skillService } from '@/services/skill.service'
 
 interface Props {
   editId?: number
@@ -13,6 +14,17 @@ interface Props {
 const FormActivity = ({ editId, open, setOpen, refetch }: Props) => {
   const [form] = useForm()
   const isEditIdValidNumber = typeof editId === 'number'
+  const { data: skills } = useQuery(['skills'], () => skillService.getAllSkill(), {
+    select(data) {
+      const result = data.data.data
+      if (!result) return
+      const res = result.skills.map(skill => ({
+        label: skill.name,
+        value: skill.id
+      }))
+      return res
+    }
+  })
   const newMutation = useMutation({
     mutationKey: 'NewActivity',
     mutationFn: (body: { name: string; description: string; location: string; skills: string[] }) =>
@@ -60,16 +72,7 @@ const FormActivity = ({ editId, open, setOpen, refetch }: Props) => {
       })
     }
   }, [data])
-  const options: SelectProps['options'] = [
-    {
-      label: 'Nam',
-      value: 0
-    },
-    {
-      label: 'Nữ',
-      value: 1
-    }
-  ]
+
   return (
     <Modal
       title={editId ? `Chỉnh sửa hoạt động` : 'Tạo hoạt động mới'}
@@ -91,15 +94,20 @@ const FormActivity = ({ editId, open, setOpen, refetch }: Props) => {
         </Form.Item>
 
         <Form.Item label='Mô tả' name='description' rules={[{ required: true, message: 'Chưa điền mô tả' }]}>
-          <Input />
+          <Input.TextArea />
         </Form.Item>
 
         <Form.Item label='Địa điểm' name='location' rules={[{ required: true, message: 'Chưa điền địa điểm' }]}>
           <Input />
         </Form.Item>
 
-        <Form.Item label='Giới tính' name='gender' rules={[{ required: true, message: 'Chưa điền giới tính' }]}>
-          <Select placeholder='select one country' defaultValue={['']} optionLabelProp='label' options={options} />
+        <Form.Item label='Kỹ năng' name='skills' rules={[{ required: true, message: 'Chưa điền kỹ năng' }]}>
+          <Select
+            mode='multiple'
+            placeholder='select one skills'
+            optionLabelProp='label'
+            options={skills}
+          />
         </Form.Item>
 
         <Row justify={'center'} align={'middle'} gutter={16}>

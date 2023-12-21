@@ -1,5 +1,6 @@
 import { activityService } from '@/services/activity.service'
-import { Avatar, Button, Card } from 'antd'
+import { Avatar, Badge, Button, Card } from 'antd'
+import { log } from 'console'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -29,7 +30,10 @@ const ActivityPage = () => {
                 title={item.name}
                 description={
                   <div className='flex justify-between items-center'>
-                    <p>{item.creator}</p>
+                    <pre>Người tạo hoạt động: {item.creator}
+                    <br />
+                    {item.description}
+                    </pre>
                     <Button onClick={() => router.push(`/activity/${item.id}`)}>Xem chi tiết</Button>
                   </div>
                 }
