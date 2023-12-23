@@ -9,6 +9,9 @@ import {
 } from '@/typeDefs/schema/organization.type'
 
 class OrganizationService {
+  listOrganizationAdmin(): Promise<AxiosResponse<IBaseResponse<IOrganizations>>> {
+    return https.get('/admin/organizations')
+  }
   getAllOrganization(): Promise<AxiosResponse<IBaseResponse<IOrganizations>>> {
     return httpsNoToken.get('/organizations')
   }

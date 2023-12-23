@@ -64,7 +64,7 @@ const ApplyActivityManagement = ({}: Props) => {
       render: (_, record) => <p>{record.user_id}</p>
     },
     {
-      title: 'Tên hoat dong',
+      title: 'Tên hoạt động',
       dataIndex: 'name_organizer',
       render: (_, record) => <p>{record.activity_id}</p>
     },
@@ -129,7 +129,9 @@ const ApplyActivityManagement = ({}: Props) => {
 
   return (
     <>
-      {dataApplyActivity && (
+      {
+      // dataApplyActivity && 
+      (
         <React.Fragment>
           <Row justify={'space-between'} align='middle' gutter={16}>
             <Col span={12}>

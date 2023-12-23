@@ -30,7 +30,8 @@ const Login = ({}: Props) => {
           login({
             role: decodeData.role_id,
             userName: decodeData.username,
-            id: decodeData.id
+            id: decodeData.id,
+            avatar: decodeData.avatar
           })
         )
         message.success('Đăng nhập thành công')
@@ -38,7 +39,7 @@ const Login = ({}: Props) => {
       }
     },
     onError(error, variables, context) {
-      message.error('Đăng nhập không thành công')
+      message.error('Tài khoản hoặc mật khẩu sai')
     }
   })
   useEffect(() => {

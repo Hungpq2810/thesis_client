@@ -4,6 +4,7 @@ import { useForm } from 'antd/lib/form/Form'
 import { useEffect } from 'react'
 import dayjs from 'dayjs'
 import { faqService } from '@/services/faq.service'
+import { log } from 'console'
 
 interface Props {
   editId?: number
@@ -19,10 +20,11 @@ const FormFaq = ({ editId, open, setOpen, refetch }: Props) => {
     mutationFn: (body: { question: string; answer: string }) => faqService.newFaq(body),
     onSuccess(data, _variables, _context) {
       const res = data.data
-      if (res) return
-      message.success('Tạo thành công')
-      setOpen(false)
-      refetch()
+
+      if (!res) return
+        message.success('Tạo thành công')
+        setOpen(false)
+        refetch()
     },
     onError(error, variables, context) {
       message.error('Tạo không thành công')

@@ -15,8 +15,8 @@ type Props = {}
 const OrganizationManagement = ({}: Props) => {
   const [open, setOpen] = useState(false)
   const [rowId, setRowId] = useState<number>()
-  const { data: dataOrganization, refetch } = useQuery(['listOrganization'], () =>
-    organizationService.getAllOrganization()
+  const { data: dataOrganization, refetch } = useQuery(['listOrganizationAdmin'], () =>
+    organizationService.listOrganizationAdmin()
   )
   const deleteMutation = useMutation({
     mutationKey: ['deleteMutation'],

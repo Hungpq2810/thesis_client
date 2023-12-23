@@ -8,6 +8,7 @@ import { userService } from '@/services/user.service'
 import React from 'react'
 import { feedbackService } from '@/services/feedback.service'
 import { IFeedback } from '@/typeDefs/schema/feedback.type'
+import { log } from 'console'
 
 type Props = {}
 
@@ -77,6 +78,8 @@ const FeedbackManagement = ({}: Props) => {
       )
     }
   ]
+  console.log(dataFeedback);
+  
 
   return (
     <>
