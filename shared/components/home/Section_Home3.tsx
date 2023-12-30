@@ -9,7 +9,7 @@ const Section_Home3 = () => {
           <h1 className='text-4xl leading-8 text-bold text-[#0F147F] border-b-2 border-b-black'>
             Tầm nhìn của chúng tôi
           </h1>
-          <p className='text-xl m-0 p-0'>Giá trị mang lại</p>
+          
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 justify-between items-center gap-10'>
           <div className='col-span-1 w-full h-full flex flex-col justify-center items-center gap-3'>

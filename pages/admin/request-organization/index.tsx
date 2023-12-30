@@ -103,7 +103,10 @@ const RequestOrganizationManagement = ({}: Props) => {
 
   return (
     <>
-      {dataRequestOrganization && dataRequestOrganization.data.data && (
+      {
+      dataRequestOrganization && 
+      // dataRequestOrganization.data.data && 
+      (
         <React.Fragment>
           <Row justify={'space-between'} align='middle' gutter={16}>
             <Col span={12}>

@@ -20,6 +20,6 @@ export interface IUser {
   created_at: string;
   updated_at: string;
   skills?: ISkill[],
-  belongsOrgainzer?: any
+  belongsOrganizer?: any
   activityApplied?: any
 }

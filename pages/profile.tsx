@@ -63,11 +63,26 @@ const Profile = ({ next }: Props) => {
     next()
   }
   const { data } = useQuery(['userDetail'], () => userService.getUserByAuth())
+  // useEffect(() => {
+  //   if (user && data) {
+  //     const { organization } = data.data.data.belongsOrganizer;
+  //     const organizationName = organization?.name;
+      
+  //     form.setFieldsValue({
+  //         ...data.data.data.user,
+  //         belongsOrgainzer: organizationName, // Hiển thị tên tổ chức
+  //     });
+      
+  //   }
+  // }, [data]);
   useEffect(() => {
     if (user && data) {
+    const { organization } = data.data.data.belongsOrganizer;
+    const organizationName = organization?.name;
       form.setFieldsValue({
         // @ts-ignore
-        ...data.data.data.user
+        ...data.data.data.user,
+        belongsOrgainzer: organizationName,
       })
     }
   }, [data])
@@ -122,7 +137,7 @@ const Profile = ({ next }: Props) => {
 
           <Form.Item
             label='Số điện thoại'
-            name='phoneNum'
+            name='phone'
             rules={[{ required: true, message: 'Vui lòng nhập số điện thoại' }]}
           >
             <Input />
@@ -158,19 +173,24 @@ const Profile = ({ next }: Props) => {
               options={skills}
             />
           </Form.Item>
-          {/* {data?.data.data.belongsOrgainzer === null && ( */}
+
+          {
+            // data?.data.data.belongsOrgainzer && 
+          (
             <Form.Item
               label='Thuộc tổ chức'
               name='belongsOrgainzer'
-              rules={[{ required: false, message: 'Chưa điền tổ chức' }]}
+              // rules={[{ required: false, message: 'Chưa điền tổ chức' }]}
             >
               <Select
+                // disabled={!!form.getFieldValue('belongsOrgainzer')}
                 placeholder='Chọn tổ chức bạn muốn gia nhập'
                 optionLabelProp='label'
                 options={organizers}
               />
             </Form.Item>
-          {/* )} */}
+           )} 
+
           <Form.Item style={{ textAlign: 'center' }}>
             <Button type='primary' htmlType='submit' loading={updateProfile.isLoading}>
               Cập nhật

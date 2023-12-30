@@ -1,16 +1,34 @@
-import useTrans from "@/hooks/useTrans";
-import { Layout } from "antd";
-const { Footer } = Layout;
-
+import { Button, Col, Row, Space } from 'antd'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { FacebookOutlined, YoutubeOutlined, InstagramOutlined, SkypeOutlined, GooglePlusOutlined } from '@ant-design/icons'
 
 const FooterContent = () => {
-    const { trans } = useTrans()
-    return (
-        <Footer style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-            <p>{`${trans.common.copyRight} ©${new Date().getFullYear()} ${trans.common.createBy} HUST Volunteer`}</p>
-            <a target='_blank' href='/' className="font-bold">Trang chủ</a>
-        </Footer>
-    );
+  return (
+    <Row gutter={16}>
+      <Col span={12}>
+        <ul>
+          <li>Được xây dựng và chịu trách nhiệm bởi Phí Quốc Hưng </li>
+          <li>Email: hungphiquoc@gmail.com </li>
+          <li>
+            <Link to={'/term'}>Quy định và chính sách (link) </Link>
+          </li>
+          <li>
+            <Link to={'/faq'}>Câu hỏi thường gặp </Link>
+          </li>
+        </ul>
+      </Col>
+      <Col span={12}>
+        <Space>
+          <Button type='link' icon={<FacebookOutlined />}></Button>
+          <Button type='link' icon={<YoutubeOutlined />}></Button>
+          <Button type='link' icon={<InstagramOutlined />}></Button>
+          <Button type='link' icon={<SkypeOutlined />}></Button>
+          <Button type='link' icon={<GooglePlusOutlined />}></Button>
+        </Space>
+      </Col>
+    </Row>
+  )
 }
 
-export default FooterContent;
+export default FooterContent

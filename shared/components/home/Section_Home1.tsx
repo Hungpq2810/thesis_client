@@ -16,20 +16,20 @@ const Section_Home1 = () => {
           <div className='mb-5 flex flex-col justify-start items-start gap-3'>
             <div className='flex justify-center items-center gap-2'>
               <IconServiceUser width={50} height={30} />
-              <p className='text-bold text-xl'>24/7 Emergency Services</p>
+              <p className='text-bold text-xl'>Quản lý tình nguyện viên</p>
             </div>
             <div className='flex justify-center items-center gap-2'>
               <IconGuarantee width={50} height={30} />
-              <p className='text-bold text-xl'>45 Minute On-Site Guarantee</p>
+              <p className='text-bold text-xl'>Liên hệ, phản hồi nhanh chóng</p>
             </div>
             <div className='flex justify-center items-center gap-2'>
               <IconTeam width={50} height={30} />
-              <p className='text-bold text-xl'>Work Directly With Your Insurance Company</p>
+              <p className='text-bold text-xl'>Quản lý các hoạt động tình nguyện</p>
             </div>
           </div>
           <div className='flex justify-start items-start gap-3'>
-          <Button className='bg-[#2f91e2] text-white p-5 flex items-center justify-center'>GET A FAST QUOTE</Button>
-            <Button className='bg-[#9866EB] text-white p-5 flex items-center justify-center'>Contact Us</Button>
+          {/* <Button className='bg-[#2f91e2] text-white p-5 flex items-center justify-center'>GET A FAST QUOTE</Button> */}
+          {/* <Button className='bg-[#9866EB] text-white p-5 flex items-center justify-center'>Contact Us</Button> */}
           </div>
         </div>
         <ImageSection_Home1 />

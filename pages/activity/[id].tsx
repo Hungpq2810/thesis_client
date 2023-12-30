@@ -18,11 +18,13 @@ type Props = {
 const DetailActivity = ({ activity }: Props) => {
   const { data: userDetail } = useQuery(['userDetail'], () => userService.getUserByAuth(), {
     select(data) {
+      
       return data.data.data.activityApplied
     }
   })
   const router = useRouter()
   const { user } = useAppSelector(state => state.appSlice)
+  console.log(user)
   const newFeedbackMutation = useMutation({
     mutationKey: 'newFeedback',
     mutationFn: (body: { activity_id: number; title: string; content: string }) => feedbackService.newActivity(body),
@@ -61,7 +63,7 @@ const DetailActivity = ({ activity }: Props) => {
   return (
     <React.Fragment>
       <Head>
-        <title>Hoạt động chi tiết</title>
+        <title>Chi tiết hoạt động</title>
         <meta name='description' content='Hoạt động chi tiết' />
         <meta name='keywords' content='Activity Management' />
       </Head>
@@ -81,11 +83,11 @@ const DetailActivity = ({ activity }: Props) => {
               <h2>Địa điểm: {activity.data.location}</h2>
             </div>
             <h3>Nội dung: {activity.data.description}</h3>
-            <p>Số lượng TN đã tham dự: {activity.data.num_of_volunteers}</p>
+            <p>Số lượng TNV đã đăng ký: {activity.data.num_of_volunteers}</p>
             {activity.data.status === 0 && user ? (
               <>
-                {userDetail && userDetail.some((item: any) => item.activity_id === activity.data.id) ? (
-                  <p>Bạn đã đăng ký</p>
+                {userDetail && userDetail.some((item: any) => item.activity_id === activity.data.id || user.role_id === 2 ) ? (
+                  <p>Bạn đã đăng ký hoặc là tổ chức</p>
                 ) : (
                   <Button onClick={() => applyActivityMutation.mutate({ activity_id: activity.data.id })}>
                     Đăng ký

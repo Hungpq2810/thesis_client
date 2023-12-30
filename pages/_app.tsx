@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
-        <title>Activity Management</title>
+        <title>HVMS - Hust Volunteer Management System</title>
       </Head>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
